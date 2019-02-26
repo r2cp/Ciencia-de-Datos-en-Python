@@ -1,0 +1,20 @@
+Se debe investigar ciertos temas(listados a continuación) y escribir sus definiciones, conclusiones, comentarios ,y todo el texto y/o ilustraciones en Markdown y ejemplos en código ejecutable dentro del notebook.
+Para esta semana la parte a investigar(relacionada a nuestro tema actual y que será útil para el proyecto de clase) es proyección vectorial. Debemos investigar:
+
+- Que es proyección vectorial?
+	Es una operación entre dos vectores en la cual se encuentra cómo se ve un vector en la dirección del otro. Si se habla de la proyección del vector b sobre el vector a, entonces utilizamos la notación proj_a b, y esto sería encontrar un vector proj_a b que indica cómo se ve el vector b en la dirección del vector a.
+
+-Definir una ufunc para calcular proyección vectorial sobre vectores de Numpy
+	Habría que calcular inner(a,b) y multiplicar por el vector a / |a|^2
+	
+-Como interpretamos la proyección vectorial?
+	La proyección vectorial se puede interpretar como la "mejor aproximación" del vector b sobre el subespacio en el cual vive el vector a. Puede pensarse que el vector b hace una "sombra" sobre el vector a y que dicha sombra indica cómo se ve el vector b sobre la dirección del vector a.
+
+-Utilizando la función del punto anterior calcularla para vectores de ejemplo e interpretar o concluir sobre el resultado.
+
+-Investigar o proponer una aplicación o caso de uso de proyección vectorial en ciencia de datos u otras ciencia de tu interés donde se pueda aplicar programación numérica. Como ejemplo o tip para esta parte: un algoritmo muy importante de ML se basa en esto y su nombre puede servir como pista para saber cual es.
+
+	Una aplicación famosa de la proyección vectorial en Ciencia de Datos es el algoritmo de Análisis de Componentes Principales (en inglés, Principal Component Analysis o PCA) que ayuda a reducir la dimensionalidad de un conjunto de datos. Por ejemplo, podría ser complicado correr modelos de regresión y clasificación utilizando 1,000 regresoras, pero con el algoritmo de PCA, esta cantidad de regresoras puede reducirse si utilizamos aquellas que más expliquen a la variable que queremos explicar, posiblemente porque muchas de las regresoras presentan una relación lineal entre sí.
+	
+	"K-Means" que es un algoritmo de clasificación de la rama de aprendizaje no supervisado. Este algoritmo recibe un conjunto de datos y la cantidad k de clases a obtener o clasificar en el conjunto.
+
