@@ -1,0 +1,2 @@
+Preguntar a Luis por correo:
+	* qué hacer con los valores nan que están en la última regresora?

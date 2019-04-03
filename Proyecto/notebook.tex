@@ -1,0 +1,928 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ProyectoPython\_v1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{carga-y-particiuxf3n-de-datos}{%
+\subsection{Carga y partición de
+datos}\label{carga-y-particiuxf3n-de-datos}}
+
+\hypertarget{cargar-el-conjunto-de-datos}{%
+\subsubsection{Cargar el conjunto de
+datos}\label{cargar-el-conjunto-de-datos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{proyecto\PYZus{}training\PYZus{}data.npy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} array([[2.08500e+05, 7.00000e+00, 8.56000e+02, 8.00000e+00, 2.00300e+03,
+                  6.50000e+01],
+                 [1.81500e+05, 6.00000e+00, 1.26200e+03, 6.00000e+00, 1.97600e+03,
+                  8.00000e+01],
+                 [2.23500e+05, 7.00000e+00, 9.20000e+02, 6.00000e+00, 2.00100e+03,
+                  6.80000e+01],
+                 {\ldots},
+                 [2.66500e+05, 7.00000e+00, 1.18800e+03, 9.00000e+00, 1.94100e+03,
+                  6.60000e+01],
+                 [1.42125e+05, 5.00000e+00, 1.07800e+03, 5.00000e+00, 1.95000e+03,
+                  6.80000e+01],
+                 [1.47500e+05, 5.00000e+00, 1.25600e+03, 6.00000e+00, 1.96500e+03,
+                  7.50000e+01]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{c+c1}{\PYZsh{} Ver la dimensión de los datos}
+          \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:} (1460, 6)
+\end{Verbatim}
+            
+    \hypertarget{particiuxf3n-del-conjunto-de-entrenamiento-y-pruebas}{%
+\subsubsection{Partición del conjunto de entrenamiento y
+pruebas}\label{particiuxf3n-del-conjunto-de-entrenamiento-y-pruebas}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{c+c1}{\PYZsh{} Cantidad de datos y regresoras}
+          \PY{n}{OBS}\PY{p}{,} \PY{n}{NVAR} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+          \PY{p}{(}\PY{n}{OBS}\PY{p}{,} \PY{n}{NVAR}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Dividir el conjunto de datos}
+          \PY{n}{TRAINOBS} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{OBS}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Conjunto de datos de entrenamiento}
+          \PY{n}{Ytrain} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{n}{TRAINOBS}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{Xtrain} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{n}{TRAINOBS}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Entrenamiento: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Ytrain}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{Xtrain}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Conjunto de datos de validación y pruebas}
+          \PY{n}{Ytest} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{TRAINOBS}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{Xtest} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{TRAINOBS}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Prueba: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Ytest}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{Xtest}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Entrenamiento:  (1168,) (1168, 5)
+Prueba:  (292,) (292, 5)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{c+c1}{\PYZsh{} Obteniendo algunos valores de prueba}
+          \PY{n}{Ytrain}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Ytrain}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{Ytest}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}145}]:} (173000.0, 235000.0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{c+c1}{\PYZsh{} Obteniendo algunos valores de prueba}
+          \PY{n}{Xtrain}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{]}\PY{p}{,} \PY{n}{Xtest}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:} (array([   6.,  959.,    7., 2000.,   58.]),
+           array([   6., 1236.,    7., 1935.,  120.]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{c+c1}{\PYZsh{} Número de columnas de X}
+          \PY{n}{Xtrain}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}147}]:} 5
+\end{Verbatim}
+            
+    \hypertarget{anuxe1lisis-exploratorio-de-datos}{%
+\subsection{Análisis exploratorio de
+datos}\label{anuxe1lisis-exploratorio-de-datos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{k}{def} \PY{n+nf}{basicStats}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{    Esta función devuelve las estadísticas básicas sobre un vector de numpy}
+          \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{n}{minVal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nanmin}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n}{maxVal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nanmax}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n}{meanVal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nanmean}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n}{sdVal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nanstd}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mínimo:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Mínimo:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Rango:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Media:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Desviación:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{minVal}\PY{p}{,} \PY{n}{maxVal}\PY{p}{,} \PY{n}{maxVal}\PY{o}{\PYZhy{}}\PY{n}{minVal}\PY{p}{,} \PY{n}{meanVal}\PY{p}{,} \PY{n}{sdVal}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{minVal}\PY{p}{,} \PY{n}{maxVal}\PY{p}{,} \PY{n}{maxVal}\PY{o}{\PYZhy{}}\PY{n}{minVal}\PY{p}{,} \PY{n}{meanVal}\PY{p}{,} \PY{n}{sdVal}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:} \PY{c+c1}{\PYZsh{} Algunas estadísticas para la respuesta}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estadísticas para Y:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{basicStats}\PY{p}{(}\PY{n}{Ytrain}\PY{p}{)}\PY{p}{;}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Xtrain}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estadísticas para X}\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{basicStats}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{}seaborn.distplot(Ytrain)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estadísticas para Y:
+Mínimo:	34900.00
+Mínimo:	755000.00
+Rango:	720100.00
+Media:	180590.28
+Desviación:	78781.95
+
+Estadísticas para X1:
+Mínimo:	1.00
+Mínimo:	10.00
+Rango:	9.00
+Media:	6.10
+Desviación:	1.38
+
+Estadísticas para X2:
+Mínimo:	334.00
+Mínimo:	3228.00
+Rango:	2894.00
+Media:	1156.32
+Desviación:	373.62
+
+Estadísticas para X3:
+Mínimo:	2.00
+Mínimo:	14.00
+Rango:	12.00
+Media:	6.49
+Desviación:	1.61
+
+Estadísticas para X4:
+Mínimo:	1875.00
+Mínimo:	2010.00
+Rango:	135.00
+Media:	1971.45
+Desviación:	29.94
+
+Estadísticas para X5:
+Mínimo:	21.00
+Mínimo:	313.00
+Rango:	292.00
+Media:	69.95
+Desviación:	23.47
+
+
+    \end{Verbatim}
+
+    \hypertarget{histogramas-de-las-variables}{%
+\subsubsection{Histogramas de las
+variables}\label{histogramas-de-las-variables}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{c+c1}{\PYZsh{} Gráficas de histogramas de las variables}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=} \PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{seaborn}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{Ytrain}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Xtrain}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Configurar el axes}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Graficar el histograma}
+              \PY{c+c1}{\PYZsh{} Quitar observaciones con NaNs de las variables}
+              \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{n}{seaborn}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{c+c1}{\PYZsh{} Ejemplo para obtener el coeficiente de correlación}
+          \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}151}]:} 0.7939900504626408
+\end{Verbatim}
+            
+    \hypertarget{gruxe1ficas-de-puntos-de-las-variables-para-analizar-la-correlaciuxf3n}{%
+\subsubsection{Gráficas de puntos de las variables para analizar la
+correlación}\label{gruxe1ficas-de-puntos-de-las-variables-para-analizar-la-correlaciuxf3n}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{c+c1}{\PYZsh{} Nubes de puntos de las variables para analizar la correlación}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=} \PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Xtrain}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Quitar observaciones con NaNs de las variables}
+              \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Computar la correlación}
+              \PY{n}{corr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{s}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} Graficar la nube de puntos}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlación(Y, X}\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{) = }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{corr}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{s}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Análisis de correlación:} de acuerdo con las gráficas, podríamos
+escoger la regresora \(X_1\) (OverallQual) como variable independiente
+para explicar el precio de las viviendas, así como a la variable \(X_2\)
+(1stFlrSF), pues también posee una correlación alta con la variable
+dependiente.
+
+    \hypertarget{creaciuxf3n-de-funciones-para-entrenar-modelo-de-regresiuxf3n-lineal-de-una-variable}{%
+\subsubsection{Creación de funciones para entrenar modelo de regresión
+lineal de una
+variable}\label{creaciuxf3n-de-funciones-para-entrenar-modelo-de-regresiuxf3n-lineal-de-una-variable}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{k}{def} \PY{n+nf}{entrenarModeloLineal}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{epochs}\PY{p}{,} \PY{n}{imprimir\PYZus{}error\PYZus{}cada}\PY{p}{,} \PY{n}{lr}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{    Función para entrenar un modelo de regresión lineal de una variable independiente.}
+          \PY{l+s+sd}{    La función de costo se minimiza de forma iterativa, actualizando los parámetros del modelo a través}
+          \PY{l+s+sd}{    del gradiente negativo.}
+          \PY{l+s+sd}{    La funcón de costo se imprime cada \PYZsq{}imprimir\PYZus{}error\PYZus{}cada\PYZsq{}}
+          \PY{l+s+sd}{    La \PYZdq{}tasa de aprendizaje\PYZdq{} o \PYZdq{}learning rate\PYZdq{} es lr}
+          \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{c+c1}{\PYZsh{} Inicializar el vector de parámetros}
+              \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Estructuras para trayectoria de errores y parámetros del modelo}
+              \PY{n}{modeloDic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{n}{costo\PYZus{}tray} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Para cada epoch...}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} Calcular yhat = m*X + b (vectorizado)}
+                  \PY{n}{yhat} \PY{o}{=} \PY{n}{predecir}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} Calcular la función de costo}
+                  \PY{n}{costo\PYZus{}tray}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhat}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} Imprimir error}
+                  \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZpc{}} \PY{n}{imprimir\PYZus{}error\PYZus{}cada} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteración }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{,}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{costo = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{costo\PYZus{}tray}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} Cómputo de los gradientes}
+                  \PY{n}{grad}  \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{yhat} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{yhat}\PY{p}{)}\PY{p}{)} \PY{p}{]}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{}print(\PYZdq{}Gradiente: \PYZdq{}, grad)}
+                  
+                  \PY{c+c1}{\PYZsh{} Actualizar los parámetros del modelo}
+                  \PY{n}{theta} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{lr} \PY{o}{*} \PY{n}{grad}
+                  
+                  \PY{c+c1}{\PYZsh{} Guardar los resultados del modelo}
+                  \PY{n}{modeloDic}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{theta}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                  
+              
+              \PY{k}{return} \PY{n}{modeloDic}\PY{p}{,} \PY{n}{costo\PYZus{}tray}
+          
+          \PY{k}{def} \PY{n+nf}{predecir}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{    Función utilizada para predecir yhat a partir de un vector theta de parámetros}
+          \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{n}{unos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones\PYZus{}like}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{unos}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{funcionCosto}\PY{p}{(}\PY{n}{yhat}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{    Función utilizada para computar el costo utilizando las observaciones y los valores pronosticados}
+          \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+              \PY{k}{return} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{yhat} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{gruxe1ficas-de-errores-del-modelo-y-nube-de-puntos}{%
+\subsubsection{Gráficas de errores del modelo y nube de
+puntos}\label{gruxe1ficas-de-errores-del-modelo-y-nube-de-puntos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{c+c1}{\PYZsh{} Cómo cambia el error en el tiempo}
+          \PY{k}{def} \PY{n+nf}{graficarError}\PY{p}{(}\PY{n}{costo\PYZus{}tray}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=} \PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{costo\PYZus{}tray}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Función de costo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} \PY{c+c1}{\PYZsh{} Para graficar el modelo de regresión lineal}
+          \PY{k}{def} \PY{n+nf}{graficarModelo}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{modeloDic}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=} \PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gráfica de modelos en función del número de iteración.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precio de las viviendas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Cantidad de modelos}
+              \PY{n}{l} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{modeloDic}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{l}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{yhat} \PY{o}{=} \PY{n}{predecir}\PY{p}{(}\PY{n}{modeloDic}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{yhat}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{predecir}\PY{p}{(}\PY{n}{modeloDic}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \hypertarget{entrenamiento-de-modelos}{%
+\subsection{Entrenamiento de modelos}\label{entrenamiento-de-modelos}}
+
+\hypertarget{entrenamiento-utilizando-la-regresora-x1}{%
+\subsubsection{Entrenamiento utilizando la regresora
+X1}\label{entrenamiento-utilizando-la-regresora-x1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{c+c1}{\PYZsh{} Entrenamiento del modelo}
+          \PY{n}{modeloX1}\PY{p}{,} \PY{n}{costo\PYZus{}tray} \PY{o}{=} \PY{n}{entrenarModeloLineal}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteración 1,	costo = 19408534125.11
+Iteración 11,	costo = 9642337262.70
+Iteración 21,	costo = 5158135949.90
+Iteración 31,	costo = 3099250472.30
+Iteración 41,	costo = 2153989032.72
+Iteración 51,	costo = 1720066621.07
+Iteración 61,	costo = 1520934101.27
+Iteración 71,	costo = 1429609357.97
+Iteración 81,	costo = 1387786450.20
+Iteración 91,	costo = 1368693239.72
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{c+c1}{\PYZsh{} Gráfica del modelo en el tiempo}
+          \PY{n}{graficarError}\PY{p}{(}\PY{n}{costo\PYZus{}tray}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{c+c1}{\PYZsh{} Graficamos la función de costo}
+          \PY{n}{graficarModelo}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{,} \PY{n}{modeloX1}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{c+c1}{\PYZsh{} Obteniendo los últimos parámetros estimados}
+          \PY{n}{modeloX1}\PY{p}{[}\PY{l+m+mi}{99}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}219}]:} array([30434.75836985, -4294.87734501])
+\end{Verbatim}
+            
+    \hypertarget{entrenamiento-utilizando-la-regresora-x2}{%
+\subsubsection{Entrenamiento utilizando la regresora
+X2}\label{entrenamiento-utilizando-la-regresora-x2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{c+c1}{\PYZsh{} Entrenamiento del modelo}
+          \PY{n}{modeloX2}\PY{p}{,} \PY{n}{costo\PYZus{}tray} \PY{o}{=} \PY{n}{entrenarModeloLineal}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mf}{0.00000003}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteración 1,	costo = 19183499412.76
+Iteración 10,	costo = 9583684919.62
+Iteración 19,	costo = 5337008207.90
+Iteración 28,	costo = 3458402834.84
+Iteración 37,	costo = 2627362851.26
+Iteración 46,	costo = 2259735108.40
+Iteración 55,	costo = 2097107365.56
+Iteración 64,	costo = 2025165617.41
+Iteración 73,	costo = 1993340696.74
+Iteración 82,	costo = 1979262285.36
+Iteración 91,	costo = 1973034409.82
+Iteración 100,	costo = 1970279381.36
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{c+c1}{\PYZsh{} Gráfica del modelo en el tiempo}
+          \PY{n}{graficarError}\PY{p}{(}\PY{n}{costo\PYZus{}tray}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{c+c1}{\PYZsh{} Graficamos la función de costo}
+          \PY{n}{graficarModelo}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{,} \PY{n}{modeloX2}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{modeloX2}\PY{p}{[}\PY{l+m+mi}{99}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}223}]:} array([ 1.52052969e+02, -1.26883161e-01])
+\end{Verbatim}
+            
+    \hypertarget{utilizando-scikit-learn-para-entrenar-el-modelo-de-regresiuxf3n-lineal}{%
+\subsection{\texorpdfstring{Utilizando \emph{scikit-learn} para entrenar
+el modelo de regresión
+lineal}{Utilizando scikit-learn para entrenar el modelo de regresión lineal}}\label{utilizando-scikit-learn-para-entrenar-el-modelo-de-regresiuxf3n-lineal}}
+
+\hypertarget{modelo-para-x1}{%
+\subsubsection{Modelo para X1}\label{modelo-para-x1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{c+c1}{\PYZsh{} Entrenamiento de modelo para X1}
+          \PY{n}{regX1} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{)}
+          \PY{n}{regX1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{regX1}\PY{o}{.}\PY{n}{intercept\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}224}]:} (array([45411.99877916]), -96469.57131873936)
+\end{Verbatim}
+            
+    \hypertarget{modelo-para-x2}{%
+\subsubsection{Modelo para X2}\label{modelo-para-x2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{c+c1}{\PYZsh{} Entrenamiento de modelo para X2}
+          \PY{n}{regX2} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{Ytrain}\PY{p}{)}
+          \PY{n}{regX2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{regX2}\PY{o}{.}\PY{n}{intercept\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}225}]:} (array([129.95124229]), 30324.585174963693)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{c+c1}{\PYZsh{} Parar acceder al valor del coeficiente }
+          \PY{n}{regX2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}226}]:} 129.95124228715713
+\end{Verbatim}
+            
+    \hypertarget{funciuxf3n-para-obtener-una-predicciuxf3n-combinada-de-modelos}{%
+\subsubsection{Función para obtener una predicción combinada de
+modelos}\label{funciuxf3n-para-obtener-una-predicciuxf3n-combinada-de-modelos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{k}{def} \PY{n+nf}{predCombModelos}\PY{p}{(}\PY{n}{modeloDic}\PY{p}{,} \PY{n}{sciLinearReg}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Generar predicción manual}
+              \PY{n}{l} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{modeloDic}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{yhatManual} \PY{o}{=} \PY{n}{predecir}\PY{p}{(}\PY{n}{modeloDic}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Generar predicción del objeto LinearRegression}
+              \PY{n}{thetaSci} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{sciLinearReg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{sciLinearReg}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{yhatSci} \PY{o}{=} \PY{n}{predecir}\PY{p}{(}\PY{n}{thetaSci}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Combinación de predicciones}
+              \PY{n}{yhatProm} \PY{o}{=} \PY{p}{(}\PY{n}{yhatManual} \PY{o}{+} \PY{n}{yhatSci}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+              
+              \PY{k}{return} \PY{n}{yhatManual}\PY{p}{,} \PY{n}{yhatSci}\PY{p}{,} \PY{n}{yhatProm}
+\end{Verbatim}
+
+
+    \hypertarget{obteniendo-el-costo-de-los-modelos-para-cada-regresora-utilizada}{%
+\subsubsection{Obteniendo el costo de los modelos para cada regresora
+utilizada}\label{obteniendo-el-costo-de-los-modelos-para-cada-regresora-utilizada}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{c+c1}{\PYZsh{} Función de costo para el modelo 1, generado manual y por scikit\PYZhy{}learn, y promedio.}
+          \PY{n}{yhatManual1}\PY{p}{,} \PY{n}{yhatSci1}\PY{p}{,} \PY{n}{yhatProm1} \PY{o}{=} \PY{n}{predCombModelos}\PY{p}{(}\PY{n}{modeloX1}\PY{p}{,} \PY{n}{regX1}\PY{p}{,} \PY{n}{Xtest}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{costoModelosX1} \PY{o}{=} \PY{p}{[}\PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhatManual1}\PY{p}{,} \PY{n}{Ytest}\PY{p}{)}\PY{p}{,} \PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhatSci1}\PY{p}{,} \PY{n}{Ytest}\PY{p}{)}\PY{p}{,}  \PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhatProm1}\PY{p}{,} \PY{n}{Ytest}\PY{p}{)}\PY{p}{]}
+          \PY{n}{costoModelosX1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}228}]:} [1537914271.018729, 1315091304.4743195, 1371228007.260375]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{c+c1}{\PYZsh{} Función de costo para el modelo 2, generado manual y por scikit\PYZhy{}learn, y promedio.}
+          \PY{n}{yhatManual2}\PY{p}{,} \PY{n}{yhatSci2}\PY{p}{,} \PY{n}{yhatProm2} \PY{o}{=} \PY{n}{predCombModelos}\PY{p}{(}\PY{n}{modeloX2}\PY{p}{,} \PY{n}{regX2}\PY{p}{,} \PY{n}{Xtest}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{costoModelosX2} \PY{o}{=} \PY{p}{[}\PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhatManual2}\PY{p}{,} \PY{n}{Ytest}\PY{p}{)}\PY{p}{,} \PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhatSci2}\PY{p}{,} \PY{n}{Ytest}\PY{p}{)}\PY{p}{,}  \PY{n}{funcionCosto}\PY{p}{(}\PY{n}{yhatProm2}\PY{p}{,} \PY{n}{Ytest}\PY{p}{)}\PY{p}{]}
+          \PY{n}{costoModelosX2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}229}]:} [2425531594.1217923, 2292769137.345937, 2345624808.0622478]
+\end{Verbatim}
+            
+    \hypertarget{gruxe1ficas-de-barras-comparativas}{%
+\subsubsection{Gráficas de barras
+comparativas}\label{gruxe1ficas-de-barras-comparativas}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{;}
+          \PY{n}{centers} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=} \PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Etiquetas de ejes}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Función de costo para los diferentes modelos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Error cuadrático medio (0.5*MSE)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Poner las etiquetas horizontales}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{centers}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modelo manual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modelo scikit\PYZhy{}learn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Promedio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Gráfica de barras}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{centers}\PY{o}{\PYZhy{}}\PY{n}{width}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{costoModelosX1}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modelo para X1 (OverallQual)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{centers}\PY{o}{+}\PY{n}{width}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{costoModelosX2}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modelo para X2 (1stFlrSF)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Límite vertical}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{3e9}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}230}]:} (1, 3000000000.0)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.27}\PY{p}{;}
+          \PY{n}{centers} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{costoManual} \PY{o}{=} \PY{p}{[}\PY{n}{costoModelosX1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{costoModelosX2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+          \PY{n}{costoScikit} \PY{o}{=} \PY{p}{[}\PY{n}{costoModelosX1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{costoModelosX2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+          \PY{n}{costoProm} \PY{o}{=} \PY{p}{[}\PY{n}{costoModelosX1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{costoModelosX2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=} \PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Etiquetas de ejes}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Función de costo para los diferentes modelos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Error cuadrático medio (0.5*MSE)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Poner las etiquetas horizontales}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{centers}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modelo para X1 (OverallQual)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modelo para X2 (1stFlrSF)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Gráfica de barras}
+          \PY{c+c1}{\PYZsh{}ax.grid()}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{centers} \PY{o}{\PYZhy{}} \PY{n}{width}\PY{p}{,} \PY{n}{costoManual}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Costo del modelo manual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{centers}\PY{p}{,} \PY{n}{costoScikit}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Costo modelo scikit\PYZhy{}learn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{centers} \PY{o}{+} \PY{n}{width}\PY{p}{,} \PY{n}{costoProm}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Costo promedio de modelos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Límite vertical}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{3e9}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusiuxf3n-acerca-de-los-modelos}{%
+\subsection{Conclusión acerca de los
+modelos}\label{conclusiuxf3n-acerca-de-los-modelos}}
+
+De acuerdo con la información gráfica presentada acerca de las funciones
+de costo, tanto para la variable X1 (\emph{OverallQual}) y para la
+variable X2 (\emph{1stFlrSF}), los modelos entrenados con la función de
+\emph{scikit-learn} proporcionan un mejor desempeño (menor error) sobre
+el conjunto de datos de prueba.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
